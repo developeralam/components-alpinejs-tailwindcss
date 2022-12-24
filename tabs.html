@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Components Using Alpine Js And Tailwindcss</title>
+    <!-- Tailwindcss -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine Js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Custom Js -->
+    <script src="app.js"></script>
+</head>
+
+<body class="bg-gray-100 p-8">
+
+    <!-- Modal component -->
+    <div x-data="{
+        tabs:['Home', 'Users', 'Settings'],
+        activeTab:'Home',
+    }">
+        <div class="flex items-center">
+            <template x-for="(tab, index) in tabs" :key="index">
+                <a @click="activeTab = tab" x-text="tab"
+                    class="py-2 px-3 bg-white cursor-pointer border border-gray-200"
+                    :class="{'text-blue-500' : activeTab === tab}"></a>
+            </template>
+        </div>
+        <div class="py-2 px-3 bg-white border">
+            <!-- Home -->
+            <div x-show="activeTab === 'Home'">Home</div>
+
+            <!-- Users -->
+            <div x-show="activeTab === 'Users'">Users</div>
+
+            <!-- Settings -->
+            <div x-show="activeTab === 'Settings'">Settings</div>
+
+            <!-- Dynamic Tab Content
+            <template x-for="(tab, index) in tabs" :key="index">
+                <div x-show="activeTab === tab" x-text="tab"></div>
+            </template> -->
+        </div>
+    </div>
+
+
+</body>
+
+</html>
