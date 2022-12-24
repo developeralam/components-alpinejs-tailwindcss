@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Components Using Alpine Js And Tailwindcss</title>
+    <!-- Tailwindcss -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine Js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Custom Js -->
+    <script src="app.js"></script>
+</head>
+
+<body class="bg-gray-100 p-8">
+
+    <!-- Accordian component -->
+    <div class="w-1/2" x-data="{
+        items:[
+            {title:'Item 1', body:'Body 1'},  
+            {title:'Item 2', body:'Body 2'},  
+            {title:'Item 3', body:'Body 3'},  
+            {title:'Item 4', body:'Body 4'},  
+        ],
+        selectItem(item){
+            if(item === this.activeItem){
+                this.activeItem = null;
+            }else{
+                this.activeItem = item;
+            }
+        },
+        activeItem :null,
+
+    }">
+        <template x-for="(item, index) in items" :key="index">
+            <div>
+                <div @click="selectItem(item)"
+                    class="flex items-center justify-between bg-gray-50 px-3 py-2 border  cursor-pointer hover:text-blue-400">
+                    <span x-text="item.title"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4 transition-all"
+                        :class="{'rotate-90' : activeItem === item}">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+
+                </div>
+                <div x-show="activeItem == item" x-html="item.body" class="bg-white px-3 py-2 border">
+
+                </div>
+            </div>
+        </template>
+    </div>
+
+
+</body>
+
+</html>
