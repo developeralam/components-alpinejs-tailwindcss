@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Components Using Alpine Js And Tailwindcss</title>
+    <!-- Tailwindcss -->
+    <script src="https://cdn.tailwindcss.com?plugins=aspect-ratio"></script>
+    <!-- Alpine Js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Custom Js -->
+    <script src="app.js"></script>
+</head>
+
+<body class="bg-gray-100 p-8">
+
+    <!-- Carousel component -->
+    <div x-data="{
+        images:['img/1.jpg', 'img/2.jpg', 'img/3.jpg', 'img/4.jpg'],
+        activeImage:null,
+        prev(){
+            let index = this.images.indexOf(this.activeImage);
+            if(index === 0)
+            index = this.images.length;
+            this.activeImage = this.images[index -1];
+        },
+        next(){
+            let index = this.images.indexOf(this.activeImage);
+            if(index === this.images.length -1) 
+            index = -1;
+            this.activeImage = this.images[index +1];
+        },
+        init(){
+            this.activeImage = this.images.length > 0 ? this.images[0] : null;
+        }
+    }">
+
+        <div class="relative">
+            <template x-for="(image, index) in images" :key="index">
+                <div x-show="activeImage === image" class="aspect-w-6 aspect-h-2">
+                    <img class="object-cover" :src="image" x-transition alt="">
+                </div>
+            </template>
+            <a href="#" @click.prevent="prev" class="absolute top-1/2 left-0 text-white -translate-y-1/2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-10 h-10">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </a>
+            <a href="#" @click.prevent="next" class="absolute top-1/2 right-0 text-white -translate-y-1/2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-10 h-10">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            </a>
+        </div>
+        <div class="flex">
+            <template x-for="(image, index) in images" :key="index">
+                <a @click.prevent="activeImage = image"
+                    class="cursor-pointer w-[150px] flex items-center justify-center border border-gray-300 hover:border-purple-500"
+                    :class="{'border-purple-600 border-2':activeImage === image}">
+                    <img :src="image" alt="">
+                </a>
+            </template>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
