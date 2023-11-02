@@ -163,3 +163,27 @@ public function fetchTopBrowsers(Period $period, int $maxResults = 10): Collecti
 ```
 
 The function returns a `Collection` in which each item is an array that holds keys `browser` and `sessions`.
+
+### All other Google Analytics queries
+
+To perform all other queries on the Google Analytics resource use `performQuery`.  [Google's Core Reporting API](https://developers.google.com/analytics/devguides/reporting/core/v3/common-queries) provides more information on which metrics and dimensions might be used.
+
+```php
+public function performQuery(Period $period, string $metrics, array $others = [])
+```
+
+You can get access to the underlying `Google_Service_Analytics` object:
+
+```php
+Analytics::getAnalyticsService();
+```
+
+## Testing
+
+Run the tests with:
+
+``` bash
+vendor/bin/phpunit
+```
+
+## Changelog
